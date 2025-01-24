@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        #shopping-list {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            min-height: 100px;
+        }
+
+        .buttons {
+            display: grid;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping List</h1>
+        <input type="text" id="item-input" placeholder="Enter an item" />
+        <div id="shopping-list"></div>
+        <div class="buttons">
+            <button onclick="addItem()">Add Item</button>
+            <button onclick="deleteAllItems()">Delete All</button>
+            <button onclick="deleteFirstItem()">Delete First Item</button>
+            <button onclick="deleteLastItem()">Delete Last Item</button>
+            <button onclick="deleteAnyItem()">Delete Any Item</button>
+            <button onclick="editItem()">Edit Item</button>
+        </div>
+    </div>
+
+    <script>
+        let shoppingList = [];
+
+        function renderList() {
+            const listContainer = document.getElementById('shopping-list');
+            listContainer.innerHTML = '';
+            for (let i = 0; i < shoppingList.length; i++) {
+                const itemDiv = document.createElement('div');
+                itemDiv.textContent = `${i + 1}. ${shoppingList[i]}`;
+                listContainer.appendChild(itemDiv);
+            }
+        }
+
+        function addItem() {
+            const itemInput = document.getElementById('item-input');
+            const newItem = itemInput.value.trim();
+            if (newItem) {
+                shoppingList.push(newItem);
+                itemInput.value = '';
+                renderList();
+            } else {
+                alert('Please enter an item!');
+            }
+        }
+
+        function deleteAllItems() {
+            if (confirm('Are you sure you want to delete all items?')) {
+                shoppingList = [];
+                renderList();
+            }
+        }
+
+        function deleteFirstItem() {
+            if (shoppingList.length > 0) {
+                shoppingList.shift();
+                renderList();
+            } else {
+                alert('No items to delete.');
+            }
+        }
+
+        function deleteLastItem() {
+            if (shoppingList.length > 0) {
+                shoppingList.pop();
+                renderList();
+            } else {
+                alert('No items to delete.');
+            }
+        }
+
+        function deleteAnyItem() {
+            const itemIndex = parseInt(prompt('Enter the item number to delete (1-based index):'), 10);
+            if (!isNaN(itemIndex) && itemIndex > 0 && itemIndex <= shoppingList.length) {
+                shoppingList.splice(itemIndex - 1, 1);
+                renderList();
+            } else {
+                alert('Invalid item number.');
+            }
+        }
+
+        function editItem() {
+            const itemIndex = parseInt(prompt('Enter the item number to edit (1-based index):'), 10);
+            if (!isNaN(itemIndex) && itemIndex > 0 && itemIndex <= shoppingList.length) {
+                const newItem = prompt('Enter the new item value:', shoppingList[itemIndex - 1]);
+                if (newItem !== null) {
+                    shoppingList[itemIndex - 1] = newItem.trim();
+                    renderList();
+                }
+            } else {
+                alert('Invalid item number.');
+            }
+        }
+    </script>
+</body>
+</html>
