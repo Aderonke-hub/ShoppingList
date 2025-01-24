@@ -43,6 +43,18 @@
         button:hover {
             background-color: #0056b3;
         }
+        .red{
+            background-color: red;
+        }
+        .btn{
+            background-color: green;
+        }
+        .red:hover{
+            background-color: rgba(255, 0, 0, 0.877);
+        }
+        .btn:hover{
+            background-color: rgba(0, 128, 0, 0.905);
+        }
 
         input {
             width: 100%;
@@ -60,11 +72,11 @@
         <div id="shopping-list"></div>
         <div class="buttons">
             <button onclick="addItem()">Add Item</button>
-            <button onclick="deleteAllItems()">Delete All</button>
-            <button onclick="deleteFirstItem()">Delete First Item</button>
-            <button onclick="deleteLastItem()">Delete Last Item</button>
-            <button onclick="deleteAnyItem()">Delete Any Item</button>
-            <button onclick="editItem()">Edit Item</button>
+            <button class="red" onclick="deleteAllItems()">Delete All</button>
+            <button class="red" onclick="deleteFirstItem()">Delete First Item</button>
+            <button class="red" onclick="deleteLastItem()">Delete Last Item</button>
+            <button class="red" onclick="deleteAnyItem()">Delete Any Item</button>
+            <button class="btn" onclick="editItem()">Edit Item</button>
         </div>
     </div>
 
